@@ -123,7 +123,19 @@ Set these in `.env.local` (see [`.env.example`](.env.example)):
 
 > Without EmailJS configured, the contact form gracefully falls back to opening the visitor's email client via a `mailto:` link.
 
-## ☁️ Deploying to Vercel
+## ☁️ Deployment
+
+### Option A — GitHub Pages (zero-config, automated)
+
+This repo ships with a GitHub Actions workflow ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) that builds a static export and publishes it to GitHub Pages automatically.
+
+1. Push/merge to the `main` branch (or run the workflow manually from the **Actions** tab).
+2. The workflow builds the site and deploys it — Pages is auto-enabled on first run.
+3. Your site goes live at `https://<username>.github.io/<repo>/`.
+
+> The static export sets the correct base path automatically, disables image optimization, and pre-renders every route (including the OG image and custom 404).
+
+### Option B — Vercel (recommended for full features)
 
 1. Push this repository to GitHub.
 2. Import the repo into [Vercel](https://vercel.com/new).

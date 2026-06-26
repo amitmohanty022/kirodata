@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Download, MapPin, Sparkles } from "lucide-react";
 import { profile } from "@/lib/data";
+import { withBasePath } from "@/lib/utils";
 import { SocialLinks } from "@/components/ui/social-links";
 
 export function Hero() {
@@ -100,7 +101,7 @@ export function Hero() {
               View my work
             </a>
             <a
-              href={profile.resumeFile}
+              href={withBasePath(profile.resumeFile)}
               download
               className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-7 py-3 font-semibold backdrop-blur transition-colors hover:border-primary/50 hover:text-primary"
             >

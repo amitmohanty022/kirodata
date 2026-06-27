@@ -1,0 +1,2 @@
+Place a sample screenshot here (e.g. sample.png) to showcase the demo in the README.
+The demo also works with any screenshot you upload at runtime.

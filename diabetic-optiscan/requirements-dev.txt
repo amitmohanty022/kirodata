@@ -1,0 +1,10 @@
+# Lightweight dev/test deps — the test suite runs WITHOUT torch/timm.
+numpy>=1.24
+pillow>=10.2
+PyWavelets>=1.5
+fastapi>=0.110
+python-multipart>=0.0.9
+pydantic>=2.6
+pytest>=8.0
+httpx>=0.27
+ruff>=0.4

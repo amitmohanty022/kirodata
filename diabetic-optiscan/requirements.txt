@@ -1,0 +1,13 @@
+# Core (lightweight — enough to run the API + demo in mock mode)
+numpy>=1.24
+pillow>=10.2
+PyWavelets>=1.5
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+pydantic>=2.6
+streamlit>=1.33
+
+# Deep learning (required only for real training / inference)
+torch>=2.2
+timm>=0.9

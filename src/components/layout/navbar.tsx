@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navLinks, profile } from "@/lib/data";
-import { cn } from "@/lib/utils";
+import { cn, withBasePath } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function Navbar() {
@@ -97,6 +97,16 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <a
+            href={withBasePath("/JARVIS/")}
+            className="hidden items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition-transform hover:scale-105 md:inline-flex"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+            </span>
+            JARVIS
+          </a>
+          <a
             href="#contact"
             className="hidden rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105 md:inline-block"
           >
@@ -140,6 +150,19 @@ export function Navbar() {
                   </a>
                 </li>
               ))}
+              <li>
+                <a
+                  href={withBasePath("/JARVIS/")}
+                  onClick={() => setOpen(false)}
+                  className="mt-1 flex items-center justify-center gap-2 rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-center text-sm font-semibold text-primary"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                  </span>
+                  Launch JARVIS
+                </a>
+              </li>
               <li>
                 <a
                   href="#contact"

@@ -327,10 +327,17 @@ def build_pdf(path):
 
 
 if __name__ == "__main__":
+    from resume_lib import build_docx as _bd, build_pdf as _bp, autofit_opts
+    CONTENT = {
+        "NAME": NAME, "CONTACT": CONTACT, "TARGET": TARGET, "SUMMARY": SUMMARY,
+        "EDUCATION": EDUCATION, "EXPERIENCE": EXPERIENCE, "PROJECTS": PROJECTS,
+        "SKILLS": SKILLS, "CERTIFICATIONS": CERTIFICATIONS,
+    }
     out_dir = os.path.dirname(os.path.abspath(__file__))
     docx_path = os.path.join(out_dir, "Amit Kumar Mohanty - HCLTech AI Developer I.docx")
     pdf_path = os.path.join(out_dir, "Amit Kumar Mohanty - HCLTech AI Developer I.pdf")
-    build_docx(docx_path)
-    pages = build_pdf(pdf_path)
+    opts = autofit_opts(CONTENT)
+    _bd(CONTENT, docx_path, opts)
+    pages, last_y = _bp(CONTENT, pdf_path, opts)
     print("DOCX ->", docx_path)
-    print("PDF  ->", pdf_path, "| pages:", pages)
+    print("PDF  ->", pdf_path, "| pages:", pages, "| last_y(mm):", round(last_y, 1))

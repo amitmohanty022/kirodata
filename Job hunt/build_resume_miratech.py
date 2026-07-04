@@ -71,7 +71,9 @@ if __name__ == "__main__":
     out_dir = os.path.dirname(os.path.abspath(__file__))
     docx_path = os.path.join(out_dir, "Amit Kumar Mohanty - Miratech Junior GenAI Developer.docx")
     pdf_path = os.path.join(out_dir, "Amit Kumar Mohanty - Miratech Junior GenAI Developer.pdf")
-    build_docx(CONTENT, docx_path)
-    pages, last_y = build_pdf(CONTENT, pdf_path)
+    from resume_lib import autofit_opts
+    opts = autofit_opts(CONTENT)
+    build_docx(CONTENT, docx_path, opts)
+    pages, last_y = build_pdf(CONTENT, pdf_path, opts)
     print("DOCX ->", docx_path)
     print("PDF  ->", pdf_path, "| pages:", pages, "| last_y(mm):", round(last_y, 1))

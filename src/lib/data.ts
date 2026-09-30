@@ -26,7 +26,7 @@ export const profile = {
   location: "Gurgaon, Haryana, India",
   email: "mohantyamit2003@gmail.com",
   phone: "+91 93549 37256",
-  resumeFile: "/resume/Amit_Kumar_Mohanty_ML_Engineer_Resume.pdf",
+  resumeFile: "/resume/Amit_Kumar_Mohanty_AI_ML_Engineer_Resume.pdf",
   avatar: "https://avatars.githubusercontent.com/amitmohanty022",
   githubUsername: "amitmohanty022",
   summary:

@@ -2,241 +2,240 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Amit Kumar Mohanty — AI/ML Engineer Resume</title>
+<title>Amit Kumar Mohanty | AI/ML Engineer Resume</title>
 <style>
-  @page { size: A4; margin: 10mm 11mm 9mm 11mm; }
+  /*
+   * Type scale and layout are measured from the original resume
+   * (add-updated-ml-resume branch) so this renders in the same style:
+   *   US Letter, 0.6in side margins, Carlito throughout
+   *   name 21pt bold | headings 12pt bold caps over a 0.9pt rule
+   *   entry titles and dates 10pt bold | body 9.4pt on a 10.2pt pitch
+   *   degree and description lines 9.2pt | bullet at +3.8pt, text at +14.8pt
+   * Everything is pure black (the original set body text in 27% grey).
+   */
+  @page { size: Letter; margin: 0.3in 0.6in 0.3in 0.6in; }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
   body {
-    font-family: "Carlito", "Calibri", "Noto Sans", sans-serif;
-    font-size: 9.5pt;
-    line-height: 1.25;
+    font-family: "Carlito", "Calibri", sans-serif;
+    font-size: 9.4pt;
+    line-height: 10.2pt;
     color: #000;
   }
 
+  a { color: #000; text-decoration: none; }
+
+  .nowrap { white-space: nowrap; }
+
+  b { font-weight: 700; }
+
   /* ---------------------------------------------------------------- header */
+  header { text-align: center; padding-bottom: 1.9pt; }
+
   .name {
     font-size: 21pt;
     font-weight: 700;
-    text-align: center;
-    letter-spacing: .2px;
-    line-height: 1.1;
+    line-height: 24pt;
+    padding-top: 1.25pt;
   }
 
-  .target-role {
-    text-align: center;
-    font-size: 10.3pt;
+  .headline {
+    font-size: 11.5pt;
     font-weight: 700;
-    color: #1a4f8a;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    margin-top: 1.5pt;
+    line-height: 13pt;
   }
 
   .contact {
-    text-align: center;
-    font-size: 9.2pt;
-    margin-top: 3pt;
+    font-size: 9.3pt;
+    line-height: 12pt;
   }
 
-  .contact a { color: #000; text-decoration: none; }
-
-  .contact .sep { color: #888; padding: 0 3.5pt; }
+  .sep { white-space: pre; }  /* keep the three spaces around each | */
 
   /* --------------------------------------------------------------- section */
   h2 {
-    font-size: 10.2pt;
+    font-size: 12pt;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .7px;
-    border-bottom: 1.1pt solid #000;
-    padding-bottom: 1pt;
-    margin-top: 4.6pt;
-    margin-bottom: 2.6pt;
+    line-height: 12pt;
+    margin-top: 9pt;
+  }
+
+  /* Heading rules are inline SVG, not borders or backgrounds: Chromium snaps
+     border widths to whole device pixels, so a 0.9pt border prints as 0.75pt
+     on some headings and 1.5pt on others. SVG geometry prints exactly. */
+  svg.rule {
+    display: block;
+    width: 100%;
+    height: 0.9pt;
+    margin-top: 1px;       /* whole px so it stays on the paint grid */
+    margin-bottom: -0.05pt; /* middle of the band where every gap rounds the same */
   }
 
   /* ------------------------------------------------------------ entry rows */
-  .entry { margin-bottom: 3pt; }
-  .entry:last-child { margin-bottom: 0; }
-
   .row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 8pt;
+    gap: 10pt;
+    font-size: 10pt;
+    font-weight: 700;
+    line-height: 10.2pt;
+    margin-bottom: 1.8pt;
   }
 
-  .role { font-weight: 700; }
+  .row span:last-child { white-space: nowrap; }
 
-  .org { font-weight: 700; }
+  .sub { font-size: 9.2pt; line-height: 10.1pt; }
 
-  .date { font-weight: 700; white-space: nowrap; font-size: 9.4pt; }
+  .italic { font-style: italic; }
 
-  .meta { font-style: italic; font-size: 9.3pt; color: #333; }
+  /* gap between schools and certifications, and a larger one between
+     jobs and between projects */
+  .entry + .entry { margin-top: 3.4pt; }
+  .spaced .entry + .entry { margin-top: 7.8pt; }
 
   /* ---------------------------------------------------------------- bullets
-     Markers use real list-style (not an absolutely positioned ::before).
-     Positioned elements are painted in a later phase, which reorders the PDF
-     content stream and makes ATS parsers read every bullet detached from its
-     job heading. Keeping markers in normal flow preserves reading order. */
-  ul {
-    list-style: square outside;
-    padding-left: 10pt;
-    margin-top: 1.2pt;
-  }
+     Hanging indent with an in-flow inline-block marker. Never use
+     position:absolute here: positioned boxes are painted in a later phase,
+     which moves every bullet to the end of the PDF text layer and detaches
+     it from its job title for any ATS reading the file. */
+  ul { list-style: none; }
 
   li {
-    margin-bottom: 1.3pt;
-    padding-left: 1pt;
+    padding-left: 14.8pt;
+    text-indent: -11pt;
   }
 
-  li::marker { font-size: 7.5pt; }
+  li + li { margin-top: 1.4pt; }
 
-  /* ----------------------------------------------------------------- skills */
-  .skills p {
-    margin-bottom: 1.8pt;
-    padding-left: 0;
-    text-align: left;
+  li::before {
+    content: "\2022";
+    display: inline-block;
+    width: 11pt;
+    text-indent: 0;
   }
-
-  .skills p:last-child { margin-bottom: 0; }
-
-  .skills b { font-weight: 700; }
-
-  /* ------------------------------------------------------------------ certs */
-  .cert-row { display: flex; justify-content: space-between; gap: 8pt; }
-
-  .tight { margin-bottom: 2.5pt; }
 </style>
 </head>
 <body>
 
   <!-- ============================== HEADER ============================== -->
-  <div class="name">Amit Kumar Mohanty</div>
-  <div class="target-role">AI / Machine Learning Engineer</div>
-  <div class="contact">
-    <a href="mailto:mohantyamit2003@gmail.com">mohantyamit2003@gmail.com</a><span class="sep">|</span>+91 93549 37256<span class="sep">|</span><a href="https://github.com/amitmohanty022">github.com/amitmohanty022</a><span class="sep">|</span><a href="https://linkedin.com/in/amitkrmohanty">linkedin.com/in/amitkrmohanty</a><span class="sep">|</span>Gurgaon, India
-  </div>
+  <header>
+    <div class="name">Amit Kumar Mohanty</div>
+    <div class="headline">AI/ML Engineer</div>
+    <div class="contact"><a href="mailto:mohantyamit2003@gmail.com">mohantyamit2003@gmail.com</a><span class="sep">   |   </span>+91 9354937256<span class="sep">   |   </span><a href="https://github.com/amitmohanty022">github.com/amitmohanty022</a><span class="sep">   |   </span><a href="https://linkedin.com/in/amitkrmohanty">linkedin.com/in/amitkrmohanty</a></div>
+  </header>
 
   <!-- ============================== SUMMARY ============================= -->
-  <h2>Professional Summary</h2>
-  <p>
-    AI/ML Engineer with <b>2 years of experience</b> taking machine learning systems from research into production &mdash;
-    <b>LLMs, Agentic AI, computer vision</b>, and the data pipelines behind them. Named
-    <b>&ldquo;Rookie of the Year 2025&rdquo;</b> at <b>Keywords Studios</b> for beating every performance target, and pursuing an
-    <b>M.Tech in AI &amp; ML at BITS Pilani</b>. Co-author of a peer-reviewed computer-vision paper.
-    <b>Marathon runner</b> &mdash; the same patience and consistency I bring to systems that keep working long after launch.
+  <h2>Professional Summary</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+  <p class="summary">
+    Machine Learning Engineer with 1.5+ years of experience building and shipping ML systems using LLMs, Agentic AI,
+    and computer vision. As a Research Associate, AI at Keywords Studios, I train AI agents and build the data pipelines
+    behind them, and was named <span class="nowrap">&ldquo;Rookie of the Year 2025&rdquo;</span> for beating every performance KPI. I am pursuing an
+    M.Tech in AI and ML at BITS Pilani and have co-authored a peer-reviewed research paper. Outside work, I am a marathon
+    runner and bring that same discipline and consistency to everything I build.
   </p>
 
-  <!-- ========================== TECHNICAL SKILLS ======================== -->
-  <h2>Technical Skills</h2>
-  <div class="skills">
-    <p><b>Languages:</b> Python, C++, SQL, Git, Data Structures &amp; Algorithms, OOP</p>
-    <p><b>ML &amp; Deep Learning:</b> PyTorch, TensorFlow, Scikit-learn, Deep Learning, Computer Vision, OpenCV, Transformers, Hugging Face, CNNs, Vision Transformers, BERT, NLP, Model Evaluation &amp; Optimization</p>
-    <p><b>LLMs &amp; Generative AI:</b> Fine-tuning (LoRA, QLoRA), RAG, Agentic AI, LangChain, LangGraph, Prompt Engineering, Vector Databases (FAISS, Chroma), Gemini &amp; OpenAI APIs</p>
-    <p><b>MLOps &amp; Cloud:</b> Docker, Kubernetes, CI/CD, MLflow, FastAPI, Model Serving &amp; Monitoring, Data Pipelines, AWS, GCP (Vertex AI), Pandas, NumPy, MySQL, MongoDB</p>
+  <!-- ============================ EDUCATION ============================ -->
+  <h2>Education</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+
+  <div class="entry">
+    <div class="row"><span>Birla Institute of Technology and Science, Pilani (BITS Pilani)</span><span>July 2026 &ndash; July 2028</span></div>
+    <div class="sub">M.Tech in Artificial Intelligence and Machine Learning (Currently Pursuing)</div>
+    <div class="sub italic">Relevant Coursework: NLP, Deep Learning, Generative AI, LLMs, Deep Neural Networks, Deep Reinforcement Learning</div>
+  </div>
+
+  <div class="entry">
+    <div class="row"><span>K.R. Mangalam University</span><span>July 2021 &ndash; July 2025</span></div>
+    <div class="sub">B.Tech in Computer Science and Engineering (Specialization in AI/ML), Gurgaon<span class="sep">   |   </span>CGPA: 8.5/10</div>
   </div>
 
   <!-- ============================ EXPERIENCE =========================== -->
-  <h2>Experience</h2>
+  <h2>Experience</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
 
-  <div class="entry">
-    <div class="row">
-      <span><span class="role">Research Associate &ndash; AI</span>, <span class="org">Keywords Studios India</span> <span class="meta">&mdash; Gurgaon, Haryana</span></span>
-      <span class="date">May 2025 &ndash; Present</span>
+  <div class="spaced">
+    <div class="entry">
+      <div class="row"><span>Research Associate &ndash; AI, Keywords Studios India &ndash; Gurgaon, Haryana</span><span>May 2025 &ndash; Present</span></div>
+      <ul>
+        <li>Named <b>&ldquo;Rookie of the Year 2025&rdquo;</b> for beating <b>every performance KPI</b> across model training, data pipelines, and teamwork.</li>
+        <li>Train and improve <b>Agentic AI models</b> that complete tasks with many steps on their own, like booking flights, placing online orders, and collecting data from websites, making them <b>more reliable</b> at finishing each task.</li>
+        <li>Helped build a <b>web automation AI agent</b> that reads the screen, follows a plain English instruction, and clicks, types, and navigates websites by itself. Tested it with a <b>global team</b> to raise its <b>action accuracy</b> before each client release.</li>
+        <li>As the first member of a global team, built custom data pipelines and delivered <b>85% of the training data I created straight to production</b>, helping models get ready faster.</li>
+      </ul>
     </div>
-    <ul>
-      <li>Train and improve <b>AI agents that finish multi-step jobs on their own</b> &mdash; booking flights, placing online orders, and pulling data from websites &mdash; making them far more reliable at completing tasks end to end.</li>
-      <li>Helped build a <b>web-automation agent</b> that reads what is on the screen, takes a plain-English instruction, and then clicks, types, and navigates a browser to get the job done; tested and scored its behavior with a global team to <b>raise action accuracy</b> before every client release.</li>
-      <li>Built custom data pipelines and pushed <b>85% of the training data I generated straight into production</b> &mdash; the first person on the global team to do this &mdash; which cut the time needed to get models ready.</li>
-      <li>Named <b>&ldquo;Rookie of the Year 2025&rdquo;</b> for beating every performance target across model training, data pipelines, and cross-team work.</li>
-    </ul>
-  </div>
 
-  <div class="entry">
-    <div class="row">
-      <span><span class="role">Artificial Intelligence Intern</span>, <span class="org">Infosys</span> <span class="meta">&mdash; Remote</span></span>
-      <span class="date">Nov 2024 &ndash; Feb 2025</span>
+    <div class="entry">
+      <div class="row"><span>Artificial Intelligence Intern, Infosys &ndash; Remote</span><span>November 2024 &ndash; February 2025</span></div>
+      <ul>
+        <li>Built an <b>AI call center system</b> with <b>LangChain</b> and <b>LangSmith</b> that improved answer accuracy by <b>35%</b>, and deployed LLM features that cut system latency by <b>25%</b>.</li>
+        <li>Compared prompt designs using A/B tests and automated LangSmith evaluation, and reduced <b>hallucinations (false answers) by 20%</b>, so customer conversations felt more natural and trustworthy.</li>
+        <li>Worked with <b>12 engineers</b> on full ML workflows and was selected to present at the <b>Best Project by Indian Interns</b> initiative.</li>
+      </ul>
     </div>
-    <ul>
-      <li>Built an <b>AI call-center assistant</b> with LangChain and LangSmith that answered customer questions <b>35% more accurately</b>, and cut response time by <b>25%</b>.</li>
-      <li>Tested different prompt designs with automated LangSmith scoring and <b>reduced made-up answers (hallucinations) by 20%</b>, making conversations feel more natural and trustworthy.</li>
-      <li>Worked with <b>12 engineers</b> on end-to-end ML workflows; selected to present at Infosys&rsquo; <b>&ldquo;Best Project by Indian Interns&rdquo;</b> showcase.</li>
-    </ul>
-  </div>
 
-  <div class="entry">
-    <div class="row">
-      <span><span class="role">Data Analytics &amp; ML Intern</span>, <span class="org">QL2 Software</span> <span class="meta">&mdash; Gurgaon, Haryana</span></span>
-      <span class="date">Jun 2024 &ndash; Aug 2024</span>
+    <div class="entry">
+      <div class="row"><span>Data Analytics &amp; ML Intern, QL2 Software &ndash; Gurgaon, Haryana</span><span>June 2024 &ndash; August 2024</span></div>
+      <ul>
+        <li>Developed <b>predictive ML models</b> for competitive pricing and automated the data collection behind them.</li>
+      </ul>
     </div>
-    <ul>
-      <li>Built <b>prediction models for competitive pricing</b> and automated the data collection that fed them, turning large raw datasets into clear business insights.</li>
-    </ul>
   </div>
 
   <!-- ============================= PROJECTS ============================ -->
-  <h2>Projects</h2>
+  <h2>Projects</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
 
-  <div class="entry">
-    <div class="row">
-      <span><span class="org">Dynamic Screen Companion</span> <span class="meta">&mdash; Python, FastAPI, Gemini API, OCR, TTS</span></span>
-      <span class="date">Jun 2025 &ndash; Present</span>
+  <div class="spaced">
+    <div class="entry">
+      <div class="row"><span>Dynamic Screen Companion</span><span>June 2025 &ndash; Present</span></div>
+      <ul>
+        <li>Built a <b>multimodal AI assistant</b> with the <b>Gemini API</b> that watches the screen in real time and gives continuous voice feedback.</li>
+        <li>Created a <b>FastAPI</b> model serving backend that handles many inference requests at the same time, cutting manual task time by <b>40%</b>.</li>
+        <li>Designed the system from scratch and tuned the OCR pipeline to keep <b>95%+ text extraction accuracy</b> on varied screen layouts.</li>
+      </ul>
     </div>
-    <ul>
-      <li>Built a <b>real-time multi-modal assistant</b> that watches live screen activity through the Gemini API and guides the user with continuous voice feedback.</li>
-      <li>Designed the architecture end to end and built a <b>FastAPI backend serving concurrent inference streams</b>; tuned the OCR pipeline to hold <b>95%+ text-extraction accuracy</b> and cut manual task time by <b>40%</b>.</li>
-    </ul>
+
+    <div class="entry">
+      <div class="row"><span>Diabetic Optiscan</span><span>January 2025 &ndash; June 2025</span></div>
+      <ul>
+        <li>Built an AI tool that scans eye (retina) images to find early signs of <b>diabetic retinopathy</b>, and co-authored a <b>peer-reviewed research paper</b> on how it works and the accuracy it achieved.</li>
+        <li>Fine-tuned a <b>Vision Transformer (ViT-B/16)</b> on the APTOS dataset and designed a custom wavelet technique that improved <b>detection precision by 50%</b> over older methods.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="row"><span>Currency Detection App for Visually Impaired</span><span>July 2024 &ndash; December 2024</span></div>
+      <ul>
+        <li>Trained an image classification model on <b>200,000+ banknote images</b> with <b>96% accuracy</b> and put it in a mobile app with voice feedback to help prevent fraud.</li>
+        <li>Ran <b>interviews with visually impaired users</b> to improve the app&rsquo;s accessibility features for everyday use.</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="entry">
-    <div class="row">
-      <span><span class="org">Diabetic Optiscan</span> <span class="meta">&mdash; PyTorch, Vision Transformer, PyWavelets, APTOS</span></span>
-      <span class="date">Jan 2025 &ndash; Jun 2025</span>
-    </div>
-    <ul>
-      <li>Built an AI tool that <b>checks retina photos for early signs of diabetic eye disease</b>, and co-authored a <b>peer-reviewed research paper</b> on how it was designed and the accuracy it gained.</li>
-      <li>Fine-tuned a <b>Vision Transformer (ViT-B/16)</b> on the APTOS dataset and added a custom wavelet step that improved <b>detection precision by 50%</b> over earlier methods.</li>
-    </ul>
-  </div>
-
-  <div class="entry">
-    <div class="row">
-      <span><span class="org">Currency Detection App for the Visually Impaired</span> <span class="meta">&mdash; TensorFlow, OpenCV, Mobile</span></span>
-      <span class="date">Jul 2024 &ndash; Dec 2024</span>
-    </div>
-    <ul>
-      <li>Trained an image classifier on <b>200,000+ banknote images (96% accuracy)</b> and shipped it in a mobile app with voice output to help users avoid cash fraud; shaped the features through interviews with visually impaired users.</li>
-    </ul>
-  </div>
-
-  <!-- ============================ EDUCATION ============================ -->
-  <h2>Education</h2>
-
-  <div class="entry tight">
-    <div class="row">
-      <span><span class="org">Birla Institute of Technology and Science, Pilani (BITS Pilani)</span></span>
-      <span class="date">Jul 2026 &ndash; Jul 2028</span>
-    </div>
-    <div class="row"><span class="meta">M.Tech in Artificial Intelligence and Machine Learning (pursuing) &mdash; NLP, Deep Learning, Generative AI, LLMs, Deep RL</span></div>
-  </div>
-
-  <div class="entry tight">
-    <div class="row">
-      <span><span class="org">K.R. Mangalam University</span></span>
-      <span class="date">Jul 2021 &ndash; Jul 2025</span>
-    </div>
-    <div class="row"><span class="meta">B.Tech in Computer Science and Engineering (AI/ML Specialization), Gurgaon &mdash; GPA: 8.5/10</span></div>
+  <!-- ============================== SKILLS ============================= -->
+  <h2>Skills</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+  <div class="skills">
+    <p><b>Languages &amp; Frameworks:</b> Python, C++, SQL, OOP, DSA, PyTorch, TensorFlow, Scikit-learn, OpenCV, Hugging Face, LangChain, LangGraph</p>
+    <p><b>AI &amp; Machine Learning:</b> LLMs, Generative AI, Agentic AI, RAG, Fine-tuning (LoRA, QLoRA), Deep Learning, Computer Vision, Transformers, BERT, NLP, Prompt Engineering, Vector Databases (FAISS/Chroma), Model Evaluation &amp; Optimization</p>
+    <p><b>MLOps &amp; Deployment:</b> Docker, Kubernetes, CI/CD, MLflow, Git, FastAPI, Model Serving, Model Monitoring, Data Pipelines</p>
+    <p><b>Data &amp; Cloud Tools:</b> AWS, GCP (Vertex AI), MySQL, MongoDB, Pandas, NumPy, Statistical Analysis</p>
   </div>
 
   <!-- ========================== CERTIFICATIONS ========================= -->
-  <h2>Certifications</h2>
-  <div class="skills">
-    <p><b>AI/ML for Geodata Analysis</b> &mdash; ISRO<span class="sep" style="color:#888; padding:0 4pt;">|</span><b>Data Science Professional Training</b> &mdash; Ducat India (2024&ndash;25)</p>
+  <h2>Certifications</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+
+  <div class="entry">
+    <div class="row"><span>Ducat India &ndash; Data Science Professional Training</span><span>April 2024 &ndash; April 2025</span></div>
+    <div class="sub italic">Professional training in Data Science: Python, statistics, machine learning, data analysis, and predictive modeling.</div>
   </div>
+
+  <div class="entry">
+    <div class="row"><span>AI/ML for Geodata Analysis &ndash; ISRO</span><span></span></div>
+    <div class="sub italic">Applied ML and deep learning to satellite and remote sensing imagery for terrain classification and geospatial pattern analysis.</div>
+  </div>
+
 
 </body>
 </html>

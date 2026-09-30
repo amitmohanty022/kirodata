@@ -30,6 +30,25 @@ TARGETS = {
 }
 
 
+# Chromium paints SVG heading rules on the whole-pixel grid but lays text out
+# at fractional positions, so the gap between each heading and its rule drifts
+# by up to 0.75pt from section to section. Nudging every <h2> onto the pixel
+# grid before printing makes all heading-to-rule gaps identical. Adds at most
+# one pixel of space per heading.
+SNAP_HEADINGS = """
+() => {
+  for (const h of document.querySelectorAll("h2")) {
+    const top = h.getBoundingClientRect().top + window.scrollY;
+    const frac = top - Math.floor(top);
+    if (frac > 0.01) {
+      const base = parseFloat(getComputedStyle(h).marginTop);
+      h.style.marginTop = `${base + (1 - frac)}px`;
+    }
+  }
+}
+"""
+
+
 def render(stem: str, out_name: str) -> Path:
     src = SRC_DIR / f"{stem}.html"
     if not src.exists():
@@ -43,9 +62,10 @@ def render(stem: str, out_name: str) -> Path:
         page = browser.new_page()
         page.goto(src.as_uri(), wait_until="load")
         page.emulate_media(media="print")
+        page.evaluate(SNAP_HEADINGS)
         page.pdf(
             path=str(out),
-            format="A4",
+            format="Letter",
             print_background=True,
             prefer_css_page_size=True,
         )

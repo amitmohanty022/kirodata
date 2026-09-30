@@ -1,4 +1,4 @@
-# Resume Review — AI/ML Engineer (v2)
+# Resume Review: AI/ML Engineer (v3)
 
 **File:** `public/resume/Amit_Kumar_Mohanty_AI_ML_Engineer_Resume.pdf`
 **Source:** `resume-src/ai-ml-engineer.html`
@@ -7,22 +7,24 @@
 
 ---
 
-## Overall score: 92 / 100
+## Overall score: 92 / 100 (your original: 77)
 
-> This is a rubric-based assessment, not a score from a commercial ATS vendor.
-> The measured numbers below (page count, keyword coverage, reading order,
-> quantification rate) are real values extracted from the built PDF; the weights
-> and judgement calls are mine.
+> This is my own rubric, not a score from a commercial ATS vendor. The
+> measured numbers below (page count, keyword coverage, reading order, colors,
+> dashes) come from the built PDF. The weights and judgement calls are mine.
 
-| Dimension | Weight | v1 (old) | v2 (new) | Notes |
+| Dimension | Weight | Your original | v3 | Notes |
 |---|---|---|---|---|
-| ATS parseability & format | 20 | 18 | **20** | Fixed a real reading-order bug (see below) |
-| Keyword / JD alignment | 20 | 18 | **19** | 40/40 common JD terms present |
-| Impact & quantification | 20 | 15 | **16** | 62% of bullets carry a number |
-| Clarity & plain language | 15 | 10 | **14** | Main focus of this rewrite |
-| Role targeting | 15 | 11 | **14** | Added explicit headline, cut noise |
-| Credibility signals | 10 | 9 | **9** | Award, paper, BITS, GPA all retained |
-| **Total** | **100** | **81** | **92** | |
+| ATS parseability & format | 20 | 14 | **20** | Original bullets contain no space characters (see below) |
+| Keyword / JD alignment | 20 | 18 | **19** | 44/44 common AI/ML Engineer JD terms present |
+| Impact & quantification | 20 | 15 | **16** | 9 of 15 bullets carry a hard number |
+| Clarity & plain language | 15 | 10 | **14** | Every bullet rewritten in plain English |
+| Role targeting | 15 | 11 | **14** | AI/ML Engineer headline, focused skills, one hobby |
+| Credibility signals | 10 | 9 | **9** | Award, paper, BITS, CGPA all kept |
+| **Total** | **100** | **77** | **92** | |
+
+Last round I scored your original 81. I lowered it to 77 after finding the
+missing spaces problem described below, which I had not checked for before.
 
 ---
 
@@ -30,173 +32,134 @@
 
 | Check | Result |
 |---|---|
-| Pages | 1 (17px headroom — verified by `check.py`) |
-| Word count | 696 |
-| Text layer | Real, selectable text — no images, no scanned content |
-| Fonts | Carlito subset, fully embedded (Type0), renders identically anywhere |
-| Columns / tables | None — single-column, the safest layout for ATS |
-| Reading order | Correct — every bullet parses directly under its own job heading |
-| Live links | 3 (email, GitHub, LinkedIn) |
-| Bullets | 13 total, 8 contain a hard number (62%) |
-| JD keyword coverage | 40/40 (100%) of common AI/ML Engineer JD terms |
+| Page | 1 page, US Letter, same as your original |
+| Layout | Your original's type scale and margins, measured from its PDF |
+| Colors | Pure black text and rules only (verified per character) |
+| Em dashes | 0 |
+| Dashes in summary or bullets | 0 (the only dashes left are in dates and job title lines, as in your original) |
+| Reading order | Every bullet sits directly under its own job or project title |
+| Word spacing | Real spaces between words; reads identically in pypdf, pdfminer.six and pdfplumber |
+| Fonts | Carlito (Calibri metrics), fully embedded |
+| Links | 3 working links: email, GitHub, LinkedIn |
+| JD keyword coverage | 44/44 |
+| Length | 735 words, 15 bullets |
 
-### The parseability bug that got fixed
-
-The first build of this resume used absolutely positioned `::before` bullet
-markers. CSS paints positioned elements in a **later paint phase**, so Chromium
-wrote every bullet to the end of the PDF content stream. An ATS reading the text
-layer linearly saw this:
-
-```
-Research Associate – AI, Keywords Studios India     May 2025 – Present
-Artificial Intelligence Intern, Infosys             Nov 2024 – Feb 2025
-Data Analytics & ML Intern, QL2 Software            Jun 2024 – Aug 2024
-PROJECTS
-...
-CERTIFICATIONS
-...
-Train and improve AI agents that finish multi-step jobs...   <- all bullets
-Helped build a web-automation agent...                          orphaned here
-```
-
-Three job titles with **zero accomplishments attached**, then an unattributed
-blob of text. That is exactly the failure mode that gets a resume auto-scored
-low. Switching to real `list-style` markers put everything back in flow. This is
-worth knowing because it is invisible on screen and in print — it only shows up
-when you extract the text layer. If you ever rebuild this in Word/Canva/LaTeX,
-re-run the extraction check.
+`python3 resume-src/check.py` verifies the page count, colors, dashes and
+reading order automatically on every build.
 
 ---
 
-## What changed, and why
+## A problem in your original PDF
 
-### 1. Added an explicit target headline
+Every bullet line in your original has **zero space characters**, and every
+bold phrase is stored separately from the sentence around it. On screen it
+looks fine. To software it does not. The same bullet, read by three common PDF
+text libraries:
 
-`AI / MACHINE LEARNING ENGINEER` now sits directly under the name. Recruiters
-categorise a resume in a few seconds, and many ATS pull a "current title"
-field. Previously the role had to be inferred from prose.
+| Library | What it reads from your original |
+|---|---|
+| pypdf | `Trained and optimized models to autonomously execute ... improving .` with the bold words ("enterprise-grade Agentic AI", "task-completion reliability") moved to the end of the page |
+| pdfminer.six | `Trained and optimized` / `enterprise-grade Agentic AI` / `models to...` split into separate fragments |
+| pdfplumber | `Trainedandoptimizedenterprise-gradeAgenticAImodelstoautonomously...` as one run-on word |
 
-### 2. Plain-language rewrite of every experience bullet
+Your bold phrases are your best keywords and metrics, so these are the words
+that get lost. All four `*_Updated.pdf` resumes on the `add-updated-ml-resume`
+branch have this problem. The new PDF gives the same clean, in-order text in
+all three libraries, bold words included.
 
-This was your main request. The pattern: lead with a plain verb, say what the
-thing actually *does*, keep the metric.
+---
+
+## What changed in this version
+
+1. **Headline is now "AI/ML Engineer"**, bold and black, under your name.
+2. **Your original styling, measured, not eyeballed.** I extracted the exact
+   values from your original PDF and matched them: US Letter, 0.6 inch side
+   margins, Carlito, name 21pt, section headings 12pt bold caps over a 0.9pt
+   rule, titles and dates 10pt bold, body 9.4pt, round bullets at the same
+   indent, italic coursework and certification lines, full month names.
+3. **Section order matches your original:** Summary, Education, Experience,
+   Projects, Skills, Certifications.
+4. **No dashes in the summary or any bullet.** Every em dash I had added is
+   gone, and no bullet uses a dash as punctuation. Hyphens inside standard
+   terms remain (peer-reviewed, Fine-tuned, Scikit-learn, ViT-B/16,
+   co-authored).
+5. **Black and white only.** Your original set body text in dark grey; this
+   version uses pure black for everything, which prints and photocopies
+   cleanly.
+6. **Experience back to "1.5+ years".** Last version said 2 years, which only
+   holds if you count internships. 1.5+ matches your original and what you
+   would enter as total experience on job portals.
+7. **Removed the tech tags under project titles.** The "TensorFlow, OpenCV"
+   tag I had put on the Currency Detection app was my guess, not something
+   from your files, so it should not have been there.
+
+## Plain language rewrite (carried over and refined)
 
 | Before | After |
 |---|---|
-| "Trained and optimized enterprise-grade Agentic AI models to autonomously execute complex multi-step workflows" | "Train and improve **AI agents that finish multi-step jobs on their own** — booking flights, placing online orders, and pulling data from websites" |
-| "Contributed to a cutting-edge web-automation AI agent that visually interprets on-screen content and, from a natural-language instruction, autonomously plans and executes browser actions" | "Helped build a **web-automation agent** that reads what is on the screen, takes a plain-English instruction, and then clicks, types, and navigates a browser to get the job done" |
-| "reducing hallucinations by 20%" | "**reduced made-up answers (hallucinations) by 20%**" |
-| "delivered 85% of self-generated training datasets directly to production" | "pushed **85% of the training data I generated straight into production**" |
+| "Trained and optimized enterprise-grade Agentic AI models to autonomously execute complex multi-step workflows" | "Train and improve **Agentic AI models** that complete tasks with many steps on their own, like booking flights, placing online orders, and collecting data from websites" |
+| "Contributed to a cutting-edge web-automation AI agent that visually interprets on-screen content and ... autonomously plans and executes browser actions" | "Helped build a **web automation AI agent** that reads the screen, follows a plain English instruction, and clicks, types, and navigates websites by itself" |
+| "reducing hallucinations by 20%" | "reduced **hallucinations (false answers) by 20%**" |
 
-Words deliberately removed: *cutting-edge, enterprise-grade, autonomously,
-leveraged, elevating, streamlining*. Keeping "hallucinations" in parentheses
-after the plain phrase means a non-technical recruiter understands it **and**
-the ATS still matches the keyword.
+Keeping "hallucinations" next to the plain phrase means a recruiter understands
+it and the ATS still matches the keyword.
 
-### 3. Marathon runner added
+**Marathon runner** closes the summary: *"Outside work, I am a marathon runner
+and bring that same discipline and consistency to everything I build."* The
+seven-item hobby list was cut so it no longer pushes your engineering pitch
+down.
 
-Placed as the closing line of the summary, tied to a work trait rather than
-listed as a hobby:
+**Trimmed:** Keywords Studios 5 bullets to 4, Infosys 4 to 3, Diabetic
+Optiscan 3 to 2. R and Power BI were dropped from skills because they are
+analyst tools that dilute an ML Engineer profile.
 
-> **Marathon runner** — the same patience and consistency I bring to systems
-> that keep working long after launch.
-
-The old hobby list (*drawing, tennis, running, philosophy, ASL, reading,
-exploring new technology*) was cut. Seven hobbies in a summary reads as filler
-and pushed your actual engineering pitch below the fold; one distinctive,
-demanding hobby with a point lands much harder.
-
-### 4. Trimmed the density
-
-- Keywords Studios: 5 bullets → 4 (merged the dataset-QC bullet into the
-  web-agent bullet, which covered the same work)
-- Infosys: 4 bullets → 3 (merged the latency metric into the main build bullet)
-- Certifications: 4 lines → 1 line (the descriptions were restating the titles)
-- Job locations moved onto the title line (saved 3 lines)
-- Coursework kept for the M.Tech only, and shortened
-
-### 5. Moved Technical Skills above Experience
-
-For an IC engineering role, the stack is the first filter for both a recruiter
-skimming and a keyword matcher. Education still appears in full, just lower.
-
-### 6. Restored two things that were missing
-
-Both were in your earlier resume versions in this repo but absent from the
-version you sent:
-
-- **QL2 Software internship** (Jun–Aug 2024) — one compact bullet. It fills the
-  gap before Infosys and makes the experience timeline continuous.
-- **GPA 8.5/10** — a good number; many Indian-market screens filter on it.
-
-### 7. Reworded for keyword coverage
-
-"computer vision" previously appeared only hyphenated as "computer-vision", so
-an exact-phrase match would miss it. Added **Computer Vision** and **Deep
-Learning** as unhyphenated skill entries. Coverage went 38/41 → 40/40.
+**Restored from your earlier resumes in this repo:** the QL2 Software
+internship (fills the gap before Infosys) and CGPA 8.5/10.
 
 ---
 
-## Please verify these before you send it
+## Please verify before sending
 
-These are changes or claims I could not confirm from the files. **Check each
-one.**
-
-1. **"2 years of experience"** — I counted from your first internship (Jun 2024)
-   to now (Sep 2026). Your old resume said "around 1.5 years", which matches
-   Keywords Studios alone (17 months). Both are defensible, but pick one and use
-   it everywhere. If you want the conservative version, change the summary to
-   *"over 1.5 years"*.
-2. **GPA 8.5/10** — carried over from an older resume in this repo. Confirm it
-   is final-transcript accurate.
-3. **QL2 Software internship** — you had dropped it. If that was deliberate,
-   delete the entry.
-4. **M.Tech dates (Jul 2026 – Jul 2028)** — as written you started ~2 months
-   ago. Confirm.
-5. **Marathon runner** — only keep it if you have actually run a full marathon.
-   If you run half-marathons, say "half-marathon runner". This is the kind of
-   detail interviewers enjoy asking about, so it must be true.
-6. **Metrics you will be asked to defend:** the 50% precision gain (over what
+1. **CGPA 8.5/10** and the **QL2 internship** both came from your older resume
+   versions. Confirm they are right, or delete them.
+2. **"As the first member of a global team"** is your original wording. It can
+   be read as "first person hired onto the team" or "first person to get data
+   into production". Know which one you mean, because you will be asked.
+3. **Metrics you will be asked to defend:** the 50% precision gain (over which
    baseline?), 85% of training data (out of how much?), 35% accuracy and 25%
-   latency improvements (measured how?). Have a one-sentence answer for each.
+   latency (measured how?). Have a one sentence answer for each.
 
 ---
 
-## Honest remaining weaknesses
+## Remaining weaknesses
 
-Things I could not fix by editing, in rough order of how much they cost you:
+These need new facts, not better wording:
 
-1. **No large-scale / distributed training signal.** Nothing shows work above
-   single-GPU scale — no multi-GPU training, no dataset in the millions, no
-   Spark/Ray/Airflow. Senior ML Engineer postings often screen for this. If you
-   have any of it, it is the highest-value bullet you could add.
-2. **Kubernetes, MLflow, AWS and Vertex AI are claimed in skills but appear in
-   no bullet.** A careful interviewer will notice that gap and probe it. Either
-   work one of them into a project bullet, or be ready to describe concrete
-   usage.
-3. **No GitHub links on individual projects.** Both `Dynamic Screen Companion`
-   and `Diabetic Optiscan` have real code in this repo. Linking each project
-   title straight to its folder is cheap credibility — say the word and I will
-   add it.
-4. **The publication is not cited.** "Peer-reviewed research paper" is much
-   stronger with a venue name, year, or DOI. Add it if it is published.
-5. **Website copy is now inconsistent with the resume.** `src/lib/data.ts` still
-   says "~1 year of experience" and a `1+` years stat, while the resume says
-   2 years. I did not change that copy since you only asked about the resume,
-   but someone checking both will see the mismatch.
+1. **No large scale training.** Nothing shows multi-GPU training, very large
+   datasets, or tools like Spark, Ray or Airflow. Senior ML Engineer roles
+   often filter on this. If you have any of it, it is the most valuable bullet
+   you could add.
+2. **Kubernetes, MLflow, AWS and Vertex AI appear in Skills but in no bullet.**
+   An interviewer may probe this. Either use one in a bullet or be ready to
+   describe real usage.
+3. **No links on projects.** Dynamic Screen Companion and Diabetic Optiscan
+   both have code in this repo. Linking each title to its folder adds
+   credibility.
+4. **The paper is not cited.** Adding the venue and year, or a DOI, makes
+   "peer-reviewed" much stronger.
+5. **Your website disagrees with the resume.** `src/lib/data.ts` still says
+   "~1 year of experience" and shows a `1+` years stat.
 
 ---
 
 ## Sending checklist
 
-- Send as **PDF**, never .docx, and keep the filename as-is — it contains your
-  name and the role.
-- For each application, mirror the posting's exact job title in the headline
-  ("Machine Learning Engineer" vs "AI Engineer") — a 5-second edit in
-  `ai-ml-engineer.html`, then `python3 resume-src/build.py`.
-- Re-order the first skills line so the posting's primary framework leads.
-- If a posting names a tool you know but the resume omits, add it to the
-  matching skills line. There is ~1.4 lines of vertical headroom; run
-  `python3 resume-src/check.py` afterwards to confirm it still fits one page.
-- Do **not** add a photo, and do not switch to a two-column template. Both
-  reliably degrade ATS parsing.
+- Send the **PDF**, never the HTML, and keep the filename.
+- Match the posting's exact title in the headline when it differs
+  ("Machine Learning Engineer" vs "AI Engineer"), then run
+  `python3 resume-src/build.py`.
+- There is about one line of spare room. After any edit, run
+  `python3 resume-src/check.py` to confirm it is still one page and still
+  black only with no dashes.
+- Do not add a photo or switch to a two column template. Both hurt ATS
+  parsing.

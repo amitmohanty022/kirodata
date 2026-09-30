@@ -1,34 +1,32 @@
 # resume-src
 
 HTML sources for the PDF resumes served from `public/resume/`. Edit the HTML,
-rebuild, and commit both the source and the regenerated PDF.
+rebuild, check, and commit both the source and the regenerated PDF.
 
 ## Setup
 
 ```bash
-pip install playwright pypdf
+pip install playwright pypdf pdfplumber
 playwright install chromium
 ```
 
-Optional but recommended — install [Carlito](https://github.com/google/fonts/tree/main/ofl/carlito)
-(metric-compatible with Calibri). Without it the renderer falls back to Calibri,
-then Noto Sans, and line wrapping will differ slightly from the committed PDFs.
+Also install [Carlito](https://github.com/google/fonts/tree/main/ofl/carlito)
+(metric compatible with Calibri). Without it the renderer falls back to
+Calibri or a generic sans, line wrapping changes, and the page may spill.
 
-## Build
-
-```bash
-python3 resume-src/build.py                 # build all targets
-python3 resume-src/build.py ai-ml-engineer  # build one
-```
-
-## Check
+## Build and check
 
 ```bash
-python3 resume-src/check.py
+python3 resume-src/build.py   # render every target to public/resume/
+python3 resume-src/check.py   # must print OK before you commit
 ```
 
-Verifies each resume still fits on **one** A4 page, and reports the remaining
-vertical headroom. Run it after every content edit.
+`check.py` fails the build if the resume:
+
+- runs past one US Letter page
+- contains any non-black text or rule
+- contains an em dash anywhere, or dash punctuation in the summary or a bullet
+- has any bullet that is not directly under its own title in the text layer
 
 ## Targets
 
@@ -36,31 +34,40 @@ vertical headroom. Run it after every content edit.
 |---|---|
 | `ai-ml-engineer.html` | `Amit_Kumar_Mohanty_AI_ML_Engineer_Resume.pdf` |
 
-The other PDFs in `public/resume/` (Data Analyst, Data Scientist, and the older
-AI Engineer / ML Engineer variants) predate this build setup and have no source
-here.
+The other PDFs in `public/resume/` predate this setup and have no source here.
 
-## Editing rules that matter for ATS
+## Style
 
-These are not stylistic preferences — breaking them measurably degrades how
-applicant tracking systems read the PDF.
+The type scale matches the original resume on the `add-updated-ml-resume`
+branch, measured from its PDF: US Letter, 0.6in side margins, Carlito, name
+21pt, headings 12pt bold caps over a 0.9pt rule, titles and dates 10pt bold,
+body 9.4pt on a 10.2pt pitch, bullet at +3.8pt with text at +14.8pt. The
+comment block at the top of the stylesheet records these values.
 
-1. **Never use `position: absolute` / `position: relative` for bullet markers or
-   layout.** Positioned elements are painted in a later phase, which reorders
-   the PDF text layer and detaches every bullet from its job heading. Use real
-   `list-style` markers. See `RESUME_REVIEW.md` for what this looked like.
-2. **Keep it single-column.** No floats, no grid columns, no tables.
-3. **No text inside images.** Everything must stay in the text layer.
-4. **Keep standard section headings** (`Experience`, `Education`, `Skills`,
-   `Projects`, `Certifications`) — parsers match on these literal words.
-5. **Spell keywords the way job postings do.** Prefer unhyphenated
-   "Computer Vision" over "computer-vision"; an exact-phrase match misses the
-   hyphenated form.
+## Rules that keep the PDF ATS safe
 
-After any structural change, confirm the text layer still reads top-to-bottom:
+These are not preferences. Breaking any of them measurably changes what an
+applicant tracking system reads.
+
+1. **No `position: absolute` or `position: relative` for bullets or layout.**
+   Positioned boxes are painted in a later phase, which moves them to the end
+   of the PDF text layer, away from their job titles. Bullets use an in-flow
+   `inline-block` marker with a hanging indent.
+2. **Keep real text.** Never place words individually or render text as an
+   image. Chromium writes real space characters and keeps bold words inside
+   their sentence. The `*_Updated.pdf` resumes on the `add-updated-ml-resume`
+   branch have no spaces inside bullets, and some parsers read them as one
+   run-on word.
+3. **Single column.** No floats, grid columns, or tables.
+4. **Standard section headings** (Experience, Education, Skills, Projects,
+   Certifications). Parsers match on these words.
+5. **Heading rules are inline SVG.** Chromium snaps border widths to whole
+   device pixels, so a 0.9pt border prints at 0.75pt on some headings and
+   1.5pt on others. `build.py` also nudges each heading onto the pixel grid so
+   every heading to rule gap is identical.
+
+To see what an ATS sees:
 
 ```bash
 python3 -c "import pypdf; print(pypdf.PdfReader('public/resume/Amit_Kumar_Mohanty_AI_ML_Engineer_Resume.pdf').pages[0].extract_text())"
 ```
-
-Each job title should be immediately followed by its own bullets.

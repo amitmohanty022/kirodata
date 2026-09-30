@@ -5,15 +5,37 @@
 <title>Amit Kumar Mohanty | AI/ML Engineer Resume</title>
 <style>
   /*
-   * Type scale and layout are measured from the original resume
-   * (add-updated-ml-resume branch) so this renders in the same style:
-   *   US Letter, 0.6in side margins, Carlito throughout
-   *   name 21pt bold | headings 12pt bold caps over a 0.9pt rule
-   *   entry titles and dates 10pt bold | body 9.4pt on a 10.2pt pitch
-   *   degree and description lines 9.2pt | bullet at +3.8pt, text at +14.8pt
-   * Everything is pure black (the original set body text in 27% grey).
+   * Layout follows the original resume (add-updated-ml-resume branch):
+   * US Letter, Carlito, bold caps headings over a thin rule, bold titles with
+   * right aligned dates, round bullets, italic coursework and descriptions.
+   * Everything is pure black.
+   *
+   * Spacing system. Chromium snaps every text line to a whole pixel
+   * (1px = 0.75pt), so any line height or gap that is not a whole number of
+   * pixels prints unevenly: a 10.2pt line height came out as 9.75pt and
+   * 10.5pt on alternating lines. Every vertical size below is therefore in
+   * whole px, and every gap of the same kind uses the same variable, so the
+   * spacing is identical everywhere on the page.
    */
-  @page { size: Letter; margin: 0.3in 0.6in 0.3in 0.6in; }
+  :root {
+    --fs-name: 22pt;
+    --fs-contact: 10pt;
+    --fs-head: 12.5pt;
+    --fs-title: 10.5pt;
+    --fs-body: 10pt;
+    --fs-sub: 10pt;
+
+    --lh: 15px;        /* every line of text: 11.25pt */
+    --lh-head: 16px;
+    --lh-name: 28px;
+
+    --g-line: 1px;     /* between bullets, between skill lines, below a title */
+    --g-entry: 5px;    /* between schools, jobs, projects, certifications */
+    --g-section: 9px;  /* above every section heading */
+    --g-rule: 3px;     /* between a section rule and the text under it */
+  }
+
+  @page { size: Letter; margin: 0.3in 0.5in 0.3in 0.5in; }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -21,58 +43,49 @@
 
   body {
     font-family: "Carlito", "Calibri", sans-serif;
-    font-size: 9.4pt;
-    line-height: 10.2pt;
+    font-size: var(--fs-body);
+    line-height: var(--lh);
     color: #000;
   }
 
   a { color: #000; text-decoration: none; }
 
-  .nowrap { white-space: nowrap; }
-
   b { font-weight: 700; }
 
-  /* ---------------------------------------------------------------- header */
-  header { text-align: center; padding-bottom: 1.9pt; }
-
-  .name {
-    font-size: 21pt;
-    font-weight: 700;
-    line-height: 24pt;
-    padding-top: 1.25pt;
-  }
-
-  .headline {
-    font-size: 11.5pt;
-    font-weight: 700;
-    line-height: 13pt;
-  }
-
-  .contact {
-    font-size: 9.3pt;
-    line-height: 12pt;
-  }
+  .nowrap { white-space: nowrap; }
 
   .sep { white-space: pre; }  /* keep the three spaces around each | */
 
-  /* --------------------------------------------------------------- section */
-  h2 {
-    font-size: 12pt;
+  /* ---------------------------------------------------------------- header */
+  header { text-align: center; }
+
+  .name {
+    font-size: var(--fs-name);
     font-weight: 700;
-    text-transform: uppercase;
-    line-height: 12pt;
-    margin-top: 9pt;
+    line-height: var(--lh-name);
   }
 
-  /* Heading rules are inline SVG, not borders or backgrounds: Chromium snaps
-     border widths to whole device pixels, so a 0.9pt border prints as 0.75pt
-     on some headings and 1.5pt on others. SVG geometry prints exactly. */
+  .contact { font-size: var(--fs-contact); margin-top: 2px; }
+
+  /* --------------------------------------------------------------- section */
+  h2 {
+    font-size: var(--fs-head);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: var(--lh-head);
+    margin-top: var(--g-section);
+  }
+
+  /* Heading rules are inline SVG, not borders: Chromium snaps border widths
+     to whole pixels, so a 0.9pt border prints as 0.75pt on some headings and
+     1.5pt on others. The SVG box is a whole 2px tall and draws a 0.9pt line
+     at its top, so nothing below it lands between pixels. */
   svg.rule {
     display: block;
     width: 100%;
-    height: 0.9pt;
-    margin-top: 1px;       /* whole px so it stays on the paint grid */
-    margin-bottom: -0.05pt; /* middle of the band where every gap rounds the same */
+    height: 2px;
+    margin-top: 1px;
+    margin-bottom: var(--g-rule);
   }
 
   /* ------------------------------------------------------------ entry rows */
@@ -81,22 +94,18 @@
     justify-content: space-between;
     align-items: baseline;
     gap: 10pt;
-    font-size: 10pt;
+    font-size: var(--fs-title);
     font-weight: 700;
-    line-height: 10.2pt;
-    margin-bottom: 1.8pt;
+    margin-bottom: var(--g-line);
   }
 
   .row span:last-child { white-space: nowrap; }
 
-  .sub { font-size: 9.2pt; line-height: 10.1pt; }
+  .sub { font-size: var(--fs-sub); }
 
   .italic { font-style: italic; }
 
-  /* gap between schools and certifications, and a larger one between
-     jobs and between projects */
-  .entry + .entry { margin-top: 3.4pt; }
-  .spaced .entry + .entry { margin-top: 7.8pt; }
+  .entry + .entry { margin-top: var(--g-entry); }
 
   /* ---------------------------------------------------------------- bullets
      Hanging indent with an in-flow inline-block marker. Never use
@@ -106,11 +115,9 @@
   ul { list-style: none; }
 
   li {
-    padding-left: 14.8pt;
+    padding-left: 15pt;
     text-indent: -11pt;
   }
-
-  li + li { margin-top: 1.4pt; }
 
   li::before {
     content: "\2022";
@@ -118,6 +125,9 @@
     width: 11pt;
     text-indent: 0;
   }
+
+  li + li,
+  .skills p + p { margin-top: var(--g-line); }
 </style>
 </head>
 <body>
@@ -125,22 +135,21 @@
   <!-- ============================== HEADER ============================== -->
   <header>
     <div class="name">Amit Kumar Mohanty</div>
-    <div class="headline">AI/ML Engineer</div>
     <div class="contact"><a href="mailto:mohantyamit2003@gmail.com">mohantyamit2003@gmail.com</a><span class="sep">   |   </span>+91 9354937256<span class="sep">   |   </span><a href="https://github.com/amitmohanty022">github.com/amitmohanty022</a><span class="sep">   |   </span><a href="https://linkedin.com/in/amitkrmohanty">linkedin.com/in/amitkrmohanty</a></div>
   </header>
 
   <!-- ============================== SUMMARY ============================= -->
-  <h2>Professional Summary</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+  <h2>Professional Summary</h2><svg class="rule" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1.2"/></svg>
   <p class="summary">
     AI/ML Engineer with 1.5+ years of experience building and deploying ML systems with LLMs, Agentic AI, and
     computer vision. As a Research Associate, AI at Keywords Studios, I train AI agents and build the data pipelines
-    behind them, and was named <span class="nowrap">&ldquo;Rookie of the Year 2025&rdquo;</span> for beating every performance KPI. I have
+    behind them, and was named <span class="nowrap">&ldquo;Rookie of the Year 2025&rdquo;</span> for beating every performance KPI. I
     co-authored a peer-reviewed research paper and am pursuing an M.Tech in AI and ML at BITS Pilani. I am also a
-    marathon runner and bring that same discipline and consistency to everything I build.
+    marathon runner and bring the same discipline and consistency to everything I build.
   </p>
 
   <!-- ============================ EDUCATION ============================ -->
-  <h2>Education</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+  <h2>Education</h2><svg class="rule" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1.2"/></svg>
 
   <div class="entry">
     <div class="row"><span>Birla Institute of Technology and Science, Pilani (BITS Pilani)</span><span>July 2026 &ndash; July 2028</span></div>
@@ -154,9 +163,9 @@
   </div>
 
   <!-- ============================ EXPERIENCE =========================== -->
-  <h2>Experience</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+  <h2>Experience</h2><svg class="rule" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1.2"/></svg>
 
-  <div class="spaced">
+  <div>
     <div class="entry">
       <div class="row"><span>Research Associate &ndash; AI, Keywords Studios India &ndash; Gurgaon, Haryana</span><span>May 2025 &ndash; Present</span></div>
       <ul>
@@ -171,7 +180,7 @@
       <div class="row"><span>Artificial Intelligence Intern, Infosys &ndash; Remote</span><span>November 2024 &ndash; February 2025</span></div>
       <ul>
         <li>Engineered an <b>AI call center system</b> with <b>LangChain</b> and <b>LangSmith</b> that improved response accuracy by <b>35%</b>, and deployed LLM features that reduced system latency by <b>25%</b>.</li>
-        <li>Ran <b>A/B tests</b> on prompt engineering strategies with automated LangSmith evaluation, reducing <b class="nowrap">hallucinations (false answers) by 20%</b> and making customer conversations more natural and trustworthy.</li>
+        <li>Reduced <b>hallucinations (false answers) by 20%</b> through <b>A/B tests</b> of prompt engineering strategies with automated LangSmith evaluation, making customer conversations more natural and trustworthy.</li>
         <li>Collaborated with <b>12 engineers</b> on ML workflows and was selected to present at the <b>Best Project by Indian Interns</b> initiative.</li>
       </ul>
     </div>
@@ -185,13 +194,13 @@
   </div>
 
   <!-- ============================= PROJECTS ============================ -->
-  <h2>Projects</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+  <h2>Projects</h2><svg class="rule" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1.2"/></svg>
 
-  <div class="spaced">
+  <div>
     <div class="entry">
       <div class="row"><span>Dynamic Screen Companion</span><span>June 2025 &ndash; Present</span></div>
       <ul>
-        <li>Built a <b>multimodal AI assistant</b> with the <b>Gemini API</b> that analyzes screen activity in real time and gives continuous voice feedback.</li>
+        <li>Built a <b>multimodal AI assistant</b> with the <b>Gemini API</b> that analyzes the screen in real time and gives continuous voice feedback.</li>
         <li>Implemented a <b>FastAPI</b> model serving backend that handles concurrent inference requests, reducing manual task time by <b>40%</b>.</li>
         <li>Designed the system from scratch and optimized the <b>OCR pipeline</b> to keep <b>95%+ text extraction accuracy</b> on varied layouts.</li>
       </ul>
@@ -215,16 +224,16 @@
   </div>
 
   <!-- ============================== SKILLS ============================= -->
-  <h2>Skills</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+  <h2>Skills</h2><svg class="rule" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1.2"/></svg>
   <div class="skills">
-    <p><b>Languages &amp; Frameworks:</b> Python, C++, SQL, OOP, DSA, PyTorch, TensorFlow, Scikit-learn, OpenCV, Hugging Face, LangChain, LangGraph</p>
+    <p><b>Languages &amp; Frameworks:</b> Python, C++, SQL, PyTorch, TensorFlow, Scikit-learn, OpenCV, Hugging Face, LangChain, LangGraph</p>
     <p><b>AI &amp; Machine Learning:</b> LLMs, Generative AI, Agentic AI, RAG, Fine-tuning (LoRA, QLoRA), Deep Learning, Computer Vision, Transformers, BERT, NLP, Prompt Engineering, Vector Databases (FAISS/Chroma), Model Evaluation &amp; Optimization</p>
     <p><b>MLOps &amp; Deployment:</b> Docker, Kubernetes, CI/CD, MLflow, Git, FastAPI, Model Serving, Model Monitoring, Data Pipelines</p>
-    <p><b>Data &amp; Cloud Tools:</b> AWS, GCP (Vertex AI), MySQL, MongoDB, Pandas, NumPy, Statistical Analysis</p>
+    <p><b>Data &amp; Cloud Tools:</b> AWS, GCP (Vertex AI), MySQL, MongoDB, Pandas, NumPy, Statistical Analysis, Data Structures &amp; Algorithms, OOP</p>
   </div>
 
   <!-- ========================== CERTIFICATIONS ========================= -->
-  <h2>Certifications</h2><svg class="rule" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1"/></svg>
+  <h2>Certifications</h2><svg class="rule" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="1.2"/></svg>
 
   <div class="entry">
     <div class="row"><span>Ducat India &ndash; Data Science Professional Training</span><span>April 2024 &ndash; April 2025</span></div>

@@ -38,11 +38,26 @@ The other PDFs in `public/resume/` predate this setup and have no source here.
 
 ## Style
 
-The type scale matches the original resume on the `add-updated-ml-resume`
-branch, measured from its PDF: US Letter, 0.6in side margins, Carlito, name
-21pt, headings 12pt bold caps over a 0.9pt rule, titles and dates 10pt bold,
-body 9.4pt on a 10.2pt pitch, bullet at +3.8pt with text at +14.8pt. The
-comment block at the top of the stylesheet records these values.
+The layout follows the original resume on the `add-updated-ml-resume` branch
+(Carlito, bold caps headings over a thin rule, bold titles with right aligned
+dates, round bullets, italic coursework and descriptions), with larger text:
+body and bullets 10pt, titles 10.5pt, headings 12.5pt, name 22pt, on US Letter
+with 0.5in side margins. Everything is pure black.
+
+**Spacing.** Chromium snaps each text line to a whole pixel (1px = 0.75pt), so
+a line height like 10.2pt prints as 9.75pt and 10.5pt on alternating lines.
+Every vertical size is therefore a whole number of px, set once in the `:root`
+variables at the top of the stylesheet:
+
+| Variable | Value | Used for |
+|---|---|---|
+| `--lh` | 15px (11.25pt) | every line of text |
+| `--g-line` | 1px | between bullets, between skill lines, below a title |
+| `--g-entry` | 5px | between schools, jobs, projects, certifications |
+| `--g-section` | 9px | above every section heading |
+| `--g-rule` | 3px | between a section rule and the text under it |
+
+Change spacing only through these variables and keep them whole px.
 
 ## Rules that keep the PDF ATS safe
 

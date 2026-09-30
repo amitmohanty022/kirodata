@@ -30,16 +30,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build import OUT_DIR, SNAP_HEADINGS, SRC_DIR, TARGETS  # noqa: E402
 
 PX_PER_IN = 96
-
-# Must stay in sync with the @page rule in the HTML sources (US Letter).
-PAGE_W_IN, PAGE_H_IN = 8.5, 11.0
-MARGIN_X_IN = 0.6 * 2
-MARGIN_Y_IN = 0.3 + 0.3
-
-PRINT_W = round((PAGE_W_IN - MARGIN_X_IN) * PX_PER_IN)
-PRINT_H = (PAGE_H_IN - MARGIN_Y_IN) * PX_PER_IN
+PAGE_W_IN, PAGE_H_IN = 8.5, 11.0  # US Letter
 
 EM_DASH, EN_DASH = "\u2014", "\u2013"
+
+
+def print_area(stem: str) -> tuple[int, float]:
+    """Printable width and height in px, read from the source's @page rule."""
+    css = (SRC_DIR / f"{stem}.html").read_text(encoding="utf-8")
+    m = re.search(r"@page\s*{[^}]*margin:\s*([\d.]+)in\s+([\d.]+)in"
+                  r"(?:\s+([\d.]+)in\s+([\d.]+)in)?", css)
+    if not m:
+        raise SystemExit(f"{stem}.html: expected '@page {{ margin: <top>in <side>in ... }}'")
+    top, right = float(m[1]), float(m[2])
+    bottom = float(m[3]) if m[3] else top
+    left = float(m[4]) if m[4] else right
+    return (round((PAGE_W_IN - left - right) * PX_PER_IN),
+            (PAGE_H_IN - top - bottom) * PX_PER_IN)
 # A dash used as punctuation: an em/en dash anywhere, or a hyphen with a
 # space on at least one side ("word - word", "word -word").
 DASH_PUNCT = re.compile(rf"[{EM_DASH}{EN_DASH}]|\s-|-\s")
@@ -109,14 +116,14 @@ def _key(text: str) -> str:
 # --------------------------------------------------------------------------
 # Checks
 # --------------------------------------------------------------------------
-def measure(stem: str) -> float:
+def measure(stem: str, width: int) -> float:
     """Return content height in px at print width."""
     src = SRC_DIR / f"{stem}.html"
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox"])
         # Viewport is deliberately much taller than a page: scrollHeight is
         # clamped to the viewport height, which would mask any headroom.
-        page = browser.new_page(viewport={"width": PRINT_W, "height": 4000})
+        page = browser.new_page(viewport={"width": width, "height": 4000})
         page.goto(src.as_uri(), wait_until="load")
         page.emulate_media(media="print")
         page.evaluate(SNAP_HEADINGS)  # measure exactly what build.py prints
@@ -204,11 +211,12 @@ def main() -> int:
     failures = 0
 
     for stem, pdf_name in TARGETS.items():
-        height = measure(stem)
-        headroom = PRINT_H - height
+        width, printable = print_area(stem)
+        height = measure(stem, width)
+        headroom = printable - height
         print(f"{stem}.html")
-        print(f"  content  : {height:.0f}px / {PRINT_H:.0f}px printable")
-        print(f"  headroom : {headroom:+.0f}px (~{headroom / 13.6:+.1f} lines)")
+        print(f"  content  : {height:.0f}px / {printable:.0f}px printable")
+        print(f"  headroom : {headroom:+.0f}px (~{headroom / 15:+.1f} lines)")
 
         problems: list[str] = []
         if headroom < 0:

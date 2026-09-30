@@ -1,4 +1,4 @@
-# Resume Review: AI/ML Engineer (v4)
+# Resume Review: AI/ML Engineer (v5)
 
 **File:** `public/resume/Amit_Kumar_Mohanty_AI_ML_Engineer_Resume.pdf`
 **Source:** `resume-src/ai-ml-engineer.html`
@@ -19,7 +19,7 @@
 | Keyword / JD alignment | 20 | 18 | **19** | 51/51 common AI/ML Engineer JD terms present |
 | Impact & quantification | 20 | 15 | **16** | 9 of 15 bullets carry a hard number |
 | Clarity & plain language | 15 | 10 | **15** | Plain English, and every bullet opens with a strong past tense verb |
-| Role targeting | 15 | 11 | **15** | Headline and summary both open with "AI/ML Engineer" |
+| Role targeting | 15 | 11 | **15** | Summary opens with "AI/ML Engineer"; focused skills |
 | Credibility signals | 10 | 9 | **9** | Award, paper, BITS, CGPA all kept |
 | **Total** | **100** | **77** | **94** | |
 
@@ -33,7 +33,7 @@ missing spaces problem described below, which I had not checked for before.
 | Check | Result |
 |---|---|
 | Page | 1 page, US Letter, same as your original |
-| Layout | Your original's type scale and margins, measured from its PDF |
+| Layout | Your original's design, larger text (10pt body), even whole pixel spacing |
 | Colors | Pure black text and rules only (verified per character) |
 | Em dashes | 0 |
 | Dashes in summary or bullets | 0 (the only dashes left are in dates and job title lines, as in your original) |
@@ -69,6 +69,25 @@ all three libraries, bold words included.
 
 ---
 
+## What changed in v5
+
+1. **Removed the "AI/ML Engineer" line under your name.** The title still
+   appears as the first words of the summary, where recruiters and ATS read it.
+2. **Bigger text.** Body and bullets 9.4pt to 10pt, titles 10 to 10.5pt,
+   headings 12 to 12.5pt, name 21 to 22pt, contact line 9.3 to 10pt.
+3. **Even spacing everywhere.** The old 10.2pt line height printed as 9.75pt
+   and 10.5pt on alternating lines, because Chromium snaps text to whole
+   pixels. Every spacing value is now a whole pixel, and each kind of gap uses
+   one shared value. Measured on the PDF: every wrapped line is 11.25pt below
+   the one above, every bullet 12pt, every new entry 15pt, every section
+   heading 19.5pt, and every heading to rule gap identical.
+4. **Side margins 0.6in to 0.5in** so the larger text still fits on one page.
+5. **Two bullets lightly reworded so no line ends with a single stray word:**
+   the multimodal assistant bullet, and the A/B testing bullet, which now leads
+   with its result ("Reduced hallucinations by 20% through A/B tests...").
+   OOP and DSA moved to the Data & Cloud line so the Languages line fits on one
+   line. No facts changed.
+
 ## What changed in v4
 
 Only the summary and bullet wording changed. The layout was not touched: the
@@ -76,8 +95,8 @@ name, headline, every heading, title, date and rule sits at exactly the same
 position as in v3 (verified from the PDF), and it is still 27 lines of summary
 and bullets on one page.
 
-1. **Summary opens with "AI/ML Engineer"**, matching the headline, so the
-   title a recruiter searches for appears twice at the top.
+1. **Summary opens with "AI/ML Engineer"**, so the title a recruiter
+   searches for is the first thing in the summary.
 2. **Marathon line reads "I am also a marathon runner"**, as you asked.
 3. **Every bullet starts with a strong past tense verb.** Weak openers are
    gone: "Helped build" is now "Co-developed", "Named" is "Awarded", and "As the
@@ -92,7 +111,7 @@ and bullets on one page.
 
 ## What changed in v3
 
-1. **Headline is now "AI/ML Engineer"**, bold and black, under your name.
+1. **Headline "AI/ML Engineer" under your name** (removed again in v5).
 2. **Your original styling, measured, not eyeballed.** I extracted the exact
    values from your original PDF and matched them: US Letter, 0.6 inch side
    margins, Carlito, name 21pt, section headings 12pt bold caps over a 0.9pt
@@ -176,7 +195,7 @@ These need new facts, not better wording:
 ## Sending checklist
 
 - Send the **PDF**, never the HTML, and keep the filename.
-- Match the posting's exact title in the headline when it differs
+- Match the posting's exact title in the first words of the summary when it differs
   ("Machine Learning Engineer" vs "AI Engineer"), then run
   `python3 resume-src/build.py`.
 - There is about one line of spare room. After any edit, run

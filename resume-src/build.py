@@ -49,6 +49,47 @@ SNAP_HEADINGS = """
 """
 
 
+# Chromium may wrap a line right after a hyphen, turning "Fine-tuning" into
+# "Fine-" at the end of one line and "tuning" at the start of the next. Many
+# ATS then read "Fine- tuning" and miss the keyword. Wrapping every
+# hyphenated word in a no-wrap span keeps each one whole. The text itself is
+# unchanged, so the PDF text layer still contains the plain hyphen.
+KEEP_HYPHENATED = """
+() => {
+  const scope = document.querySelectorAll(".summary, li, .skills p, .sub");
+  const word = /[^\\s]*[A-Za-z0-9]-[A-Za-z0-9][^\\s]*/g;
+  for (const root of scope) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    for (const node of nodes) {
+      const text = node.nodeValue;
+      if (!word.test(text)) continue;
+      word.lastIndex = 0;
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      for (const m of text.matchAll(word)) {
+        frag.append(text.slice(last, m.index));
+        const span = document.createElement("span");
+        span.style.whiteSpace = "nowrap";
+        span.textContent = m[0];
+        frag.append(span);
+        last = m.index + m[0].length;
+      }
+      frag.append(text.slice(last));
+      node.replaceWith(frag);
+    }
+  }
+}
+"""
+
+
+def prepare(page) -> None:
+    """Apply the print-time layout fixes shared by build.py and check.py."""
+    page.evaluate(KEEP_HYPHENATED)
+    page.evaluate(SNAP_HEADINGS)
+
+
 def render(stem: str, out_name: str) -> Path:
     src = SRC_DIR / f"{stem}.html"
     if not src.exists():
@@ -62,7 +103,7 @@ def render(stem: str, out_name: str) -> Path:
         page = browser.new_page()
         page.goto(src.as_uri(), wait_until="load")
         page.emulate_media(media="print")
-        page.evaluate(SNAP_HEADINGS)
+        prepare(page)
         page.pdf(
             path=str(out),
             format="Letter",

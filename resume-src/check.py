@@ -27,7 +27,7 @@ import pypdf
 from playwright.sync_api import sync_playwright
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import OUT_DIR, SNAP_HEADINGS, SRC_DIR, TARGETS  # noqa: E402
+from build import OUT_DIR, SRC_DIR, TARGETS, prepare  # noqa: E402
 
 PX_PER_IN = 96
 PAGE_W_IN, PAGE_H_IN = 8.5, 11.0  # US Letter
@@ -126,7 +126,7 @@ def measure(stem: str, width: int) -> float:
         page = browser.new_page(viewport={"width": width, "height": 4000})
         page.goto(src.as_uri(), wait_until="load")
         page.emulate_media(media="print")
-        page.evaluate(SNAP_HEADINGS)  # measure exactly what build.py prints
+        prepare(page)  # measure exactly what build.py prints
         height = page.evaluate(
             "() => {"
             "  const kids = [...document.body.children];"
@@ -172,6 +172,12 @@ def check_pdf(stem: str, pdf_path: Path) -> list[str]:
     print(f"  em dash  : {em}")
     if em:
         problems.append(f"{em} em dash(es) in the PDF")
+
+    # A line ending in "letter-" means a word was split at its hyphen, which
+    # many ATS read as two words ("Fine- tuning").
+    split = [l.strip()[-25:] for l in text.splitlines() if re.search(r"[A-Za-z0-9]-$", l.strip())]
+    print(f"  hyphens  : {'no word split across lines' if not split else f'{len(split)} word(s) split'}")
+    problems += [f"word split at a hyphen: ...{s}" for s in split]
 
     outline = _Outline()
     outline.feed((SRC_DIR / f"{stem}.html").read_text(encoding="utf-8"))

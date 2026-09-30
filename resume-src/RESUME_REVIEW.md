@@ -1,4 +1,4 @@
-# Resume Review: AI/ML Engineer (v5)
+# Resume Review: AI/ML Engineer (v6)
 
 **File:** `public/resume/Amit_Kumar_Mohanty_AI_ML_Engineer_Resume.pdf`
 **Source:** `resume-src/ai-ml-engineer.html`
@@ -7,7 +7,7 @@
 
 ---
 
-## Overall score: 94 / 100 (your original: 77)
+## Overall score: 95 / 100 (your original: 75)
 
 > This is my own rubric, not a score from a commercial ATS vendor. The
 > measured numbers below (page count, keyword coverage, reading order, colors,
@@ -16,15 +16,79 @@
 | Dimension | Weight | Your original | v3 | Notes |
 |---|---|---|---|---|
 | ATS parseability & format | 20 | 14 | **20** | Original bullets contain no space characters (see below) |
-| Keyword / JD alignment | 20 | 18 | **19** | 51/51 common AI/ML Engineer JD terms present |
+| Keyword / JD alignment | 20 | 16 | **20** | 75% average match on 4 real postings (original 63%) |
 | Impact & quantification | 20 | 15 | **16** | 9 of 15 bullets carry a hard number |
 | Clarity & plain language | 15 | 10 | **15** | Plain English, and every bullet opens with a strong past tense verb |
 | Role targeting | 15 | 11 | **15** | Summary opens with "AI/ML Engineer"; focused skills |
 | Credibility signals | 10 | 9 | **9** | Award, paper, BITS, CGPA all kept |
-| **Total** | **100** | **77** | **94** | |
+| **Total** | **100** | **75** | **95** | |
 
-Last round I scored your original 81. I lowered it to 77 after finding the
-missing spaces problem described below, which I had not checked for before.
+I first scored your original 81, then lowered it to 77 after finding the
+missing spaces problem below, and to 75 once I could measure its keyword match
+against real job postings (63%).
+
+---
+
+## ATS score
+
+No single "ATS score" exists. Workday, Greenhouse, Lever, Naukri and other ATS
+do not publish a number; they parse the file, then recruiters filter and rank
+by keywords. Scores from tools like Jobscan compare your resume to one specific
+job description. So here are the two things that actually decide whether you
+pass, both measured on the built PDF:
+
+**1. Parsing: pass.** One page, real text, one column, standard headings, black
+text, correct reading order, no words split at hyphens, and the same clean text
+from three different PDF libraries (pypdf, pdfminer.six, pdfplumber).
+
+**2. Keyword match against four real postings (Sep 2026): 75% average.**
+Jobscan recommends 75% or higher.
+
+| Posting | Your original | v5 | v6 |
+|---|---|---|---|
+| UnitedHealth (Optum) AI/ML Engineer, Gurgaon | 62% | 69% | **76%** |
+| NTT DATA AI Engineer, Gurgaon | 67% | 67% | **74%** |
+| UnitedHealth (Optum) AI or ML Engineer, Bengaluru | 73% | 73% | **80%** |
+| Accenture AI/ML Engineer | 50% | 63% | **70%** |
+| **Average** | **63%** | **68%** | **75%** |
+
+Re-run with `python3 resume-src/jd_match.py -v`. The skills of each posting
+are listed in that file with links to the live listings.
+
+### Terms the postings want that the resume still lacks
+
+I only add what your own files support. **Add these only if they are true for
+you:** Azure, Agile/Scrum, tool calling (for the web agent), microservices,
+guardrails, observability, Keras, NLTK or spaCy, Spark, Kafka, Java.
+
+Three of the four postings also ask for 5+ years of experience, which no
+wording can fix. Roles asking for 0 to 3 years will be a closer fit, and the
+same skills match carries over.
+
+---
+
+## What changed in v6
+
+Every addition is backed by your own resumes or your code in this repo:
+
+| Added | Evidence |
+|---|---|
+| **Gurgaon** in the contact line | Your jobs and site profile; ATS fill a location field and recruiters filter by city |
+| **FastAPI REST API** in both projects | `/analyze` and `/predict` endpoints in the project code |
+| **Dockerized** (Diabetic Optiscan) | `diabetic-optiscan/Dockerfile` |
+| **image processing** (wavelet technique) | `preprocessing/wavelet.py` and `fundus.py` |
+| **Embeddings, Semantic Search** | Follow from the RAG and FAISS/Chroma you already list |
+| **Supervised Learning** | Your image classifiers (ViT on APTOS, banknotes) |
+| **Matplotlib, Seaborn, Exploratory Data Analysis** | Listed in your Data Scientist and Data Analyst resumes |
+| **Links** on the two project titles | Public folders in this repo (both return HTTP 200) |
+
+Also:
+- Hyphenated words ("Fine-tuning", "Scikit-learn") can no longer be split at a
+  line end. A split reads as "Fine- tuning" and many ATS miss the keyword.
+  `check.py` now fails the build if that happens.
+- Contact separators went from three spaces to two so the location fits.
+- Entry and section gaps are 1px tighter to make room. Spacing is still
+  identical everywhere.
 
 ---
 
@@ -41,7 +105,7 @@ missing spaces problem described below, which I had not checked for before.
 | Word spacing | Real spaces between words; reads identically in pypdf, pdfminer.six and pdfplumber |
 | Fonts | Carlito (Calibri metrics), fully embedded |
 | Links | 3 working links: email, GitHub, LinkedIn |
-| JD keyword coverage | 51/51 (Python, PyTorch, LLM, RAG, Agentic, A/B test, OCR, inference, model serving, and more) |
+| JD keyword match | 75% average against 4 real AI/ML postings (see above) |
 | Length | 735 words, 15 bullets |
 
 `python3 resume-src/check.py` verifies the page count, colors, dashes and
@@ -182,9 +246,8 @@ These need new facts, not better wording:
 2. **Kubernetes, MLflow, AWS and Vertex AI appear in Skills but in no bullet.**
    An interviewer may probe this. Either use one in a bullet or be ready to
    describe real usage.
-3. **No links on projects.** Dynamic Screen Companion and Diabetic Optiscan
-   both have code in this repo. Linking each title to its folder adds
-   credibility.
+3. **Only two projects are linked.** The Currency Detection app has no code
+   in this repo; add a link if it is public anywhere.
 4. **The paper is not cited.** Adding the venue and year, or a DOI, makes
    "peer-reviewed" much stronger.
 5. **Your website disagrees with the resume.** `src/lib/data.ts` still says

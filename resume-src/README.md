@@ -19,6 +19,7 @@ Calibri or a generic sans, line wrapping changes, and the page may spill.
 ```bash
 python3 resume-src/build.py   # render every target to public/resume/
 python3 resume-src/check.py   # must print OK before you commit
+python3 resume-src/jd_match.py -v   # keyword match against real job postings
 ```
 
 `check.py` fails the build if the resume:
@@ -27,6 +28,7 @@ python3 resume-src/check.py   # must print OK before you commit
 - contains any non-black text or rule
 - contains an em dash anywhere, or dash punctuation in the summary or a bullet
 - has any bullet that is not directly under its own title in the text layer
+- splits a hyphenated word across two lines ("Fine- tuning" hides the keyword)
 
 ## Targets
 
@@ -53,8 +55,8 @@ variables at the top of the stylesheet:
 |---|---|---|
 | `--lh` | 15px (11.25pt) | every line of text |
 | `--g-line` | 1px | between bullets, between skill lines, below a title |
-| `--g-entry` | 5px | between schools, jobs, projects, certifications |
-| `--g-section` | 9px | above every section heading |
+| `--g-entry` | 4px | between schools, jobs, projects, certifications |
+| `--g-section` | 8px | above every section heading |
 | `--g-rule` | 3px | between a section rule and the text under it |
 
 Change spacing only through these variables and keep them whole px.

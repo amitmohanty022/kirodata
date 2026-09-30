@@ -1,4 +1,4 @@
-# Resume Review: AI/ML Engineer (v3)
+# Resume Review: AI/ML Engineer (v4)
 
 **File:** `public/resume/Amit_Kumar_Mohanty_AI_ML_Engineer_Resume.pdf`
 **Source:** `resume-src/ai-ml-engineer.html`
@@ -7,7 +7,7 @@
 
 ---
 
-## Overall score: 92 / 100 (your original: 77)
+## Overall score: 94 / 100 (your original: 77)
 
 > This is my own rubric, not a score from a commercial ATS vendor. The
 > measured numbers below (page count, keyword coverage, reading order, colors,
@@ -16,12 +16,12 @@
 | Dimension | Weight | Your original | v3 | Notes |
 |---|---|---|---|---|
 | ATS parseability & format | 20 | 14 | **20** | Original bullets contain no space characters (see below) |
-| Keyword / JD alignment | 20 | 18 | **19** | 44/44 common AI/ML Engineer JD terms present |
+| Keyword / JD alignment | 20 | 18 | **19** | 51/51 common AI/ML Engineer JD terms present |
 | Impact & quantification | 20 | 15 | **16** | 9 of 15 bullets carry a hard number |
-| Clarity & plain language | 15 | 10 | **14** | Every bullet rewritten in plain English |
-| Role targeting | 15 | 11 | **14** | AI/ML Engineer headline, focused skills, one hobby |
+| Clarity & plain language | 15 | 10 | **15** | Plain English, and every bullet opens with a strong past tense verb |
+| Role targeting | 15 | 11 | **15** | Headline and summary both open with "AI/ML Engineer" |
 | Credibility signals | 10 | 9 | **9** | Award, paper, BITS, CGPA all kept |
-| **Total** | **100** | **77** | **92** | |
+| **Total** | **100** | **77** | **94** | |
 
 Last round I scored your original 81. I lowered it to 77 after finding the
 missing spaces problem described below, which I had not checked for before.
@@ -41,7 +41,7 @@ missing spaces problem described below, which I had not checked for before.
 | Word spacing | Real spaces between words; reads identically in pypdf, pdfminer.six and pdfplumber |
 | Fonts | Carlito (Calibri metrics), fully embedded |
 | Links | 3 working links: email, GitHub, LinkedIn |
-| JD keyword coverage | 44/44 |
+| JD keyword coverage | 51/51 (Python, PyTorch, LLM, RAG, Agentic, A/B test, OCR, inference, model serving, and more) |
 | Length | 735 words, 15 bullets |
 
 `python3 resume-src/check.py` verifies the page count, colors, dashes and
@@ -69,7 +69,28 @@ all three libraries, bold words included.
 
 ---
 
-## What changed in this version
+## What changed in v4
+
+Only the summary and bullet wording changed. The layout was not touched: the
+name, headline, every heading, title, date and rule sits at exactly the same
+position as in v3 (verified from the PDF), and it is still 27 lines of summary
+and bullets on one page.
+
+1. **Summary opens with "AI/ML Engineer"**, matching the headline, so the
+   title a recruiter searches for appears twice at the top.
+2. **Marathon line reads "I am also a marathon runner"**, as you asked.
+3. **Every bullet starts with a strong past tense verb.** Weak openers are
+   gone: "Helped build" is now "Co-developed", "Named" is "Awarded", and "As the
+   first member..." now starts with "Built".
+4. **More ATS keywords inside the bullets**, not just in Skills: A/B tests,
+   prompt engineering, data pipelines, OCR pipeline, image classification,
+   concurrent inference, task completion reliability.
+5. **Metrics kept whole.** "hallucinations (false answers) by 20%" can no
+   longer split across two lines.
+6. **Nothing new was claimed.** Every bullet maps to a statement in your
+   original resume. No numbers, tools or results were added.
+
+## What changed in v3
 
 1. **Headline is now "AI/ML Engineer"**, bold and black, under your name.
 2. **Your original styling, measured, not eyeballed.** I extracted the exact
@@ -95,17 +116,17 @@ all three libraries, bold words included.
 
 ## Plain language rewrite (carried over and refined)
 
-| Before | After |
+| Before (your original) | Now |
 |---|---|
-| "Trained and optimized enterprise-grade Agentic AI models to autonomously execute complex multi-step workflows" | "Train and improve **Agentic AI models** that complete tasks with many steps on their own, like booking flights, placing online orders, and collecting data from websites" |
-| "Contributed to a cutting-edge web-automation AI agent that visually interprets on-screen content and ... autonomously plans and executes browser actions" | "Helped build a **web automation AI agent** that reads the screen, follows a plain English instruction, and clicks, types, and navigates websites by itself" |
-| "reducing hallucinations by 20%" | "reduced **hallucinations (false answers) by 20%**" |
+| "Trained and optimized enterprise-grade Agentic AI models to autonomously execute complex multi-step workflows" | "Trained and optimized **Agentic AI models** that complete complex tasks on their own, such as booking flights, placing online orders, and collecting web data, improving **task completion reliability**" |
+| "Contributed to a cutting-edge web-automation AI agent that visually interprets on-screen content and ... autonomously plans and executes browser actions" | "Co-developed a **web automation AI agent** that reads the screen, follows plain English instructions, and clicks, types, and navigates websites by itself" |
+| "Designed and A/B-tested prompt-engineering strategies ... reducing hallucinations by 20%" | "Ran **A/B tests** on prompt engineering strategies with automated LangSmith evaluation, reducing **hallucinations (false answers) by 20%**" |
 
 Keeping "hallucinations" next to the plain phrase means a recruiter understands
 it and the ATS still matches the keyword.
 
-**Marathon runner** closes the summary: *"Outside work, I am a marathon runner
-and bring that same discipline and consistency to everything I build."* The
+**Marathon runner** closes the summary: *"I am also a marathon runner and
+bring that same discipline and consistency to everything I build."* The
 seven-item hobby list was cut so it no longer pushes your engineering pitch
 down.
 

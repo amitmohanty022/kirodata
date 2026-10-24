@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Github } from "lucide-react";
 import { techStack, profile } from "@/lib/data";
 import { Reveal } from "@/components/ui/reveal";

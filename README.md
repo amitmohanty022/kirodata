@@ -1,8 +1,11 @@
 # Amit Kumar Mohanty — Portfolio
 
+> **🔗 Live demo: https://kirodata.vercel.app**
+
 A modern, premium, fully responsive personal portfolio for **Amit Kumar Mohanty** — AI/ML Engineer, Data Scientist & Full-Stack Developer. Built with Next.js, TypeScript, Tailwind CSS, and Framer Motion, and engineered to be fast, accessible, SEO-friendly, and deployment-ready for Vercel.
 
-![Built with Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![Built with Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19-61dafb?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38bdf8?logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0080?logo=framer)
@@ -29,7 +32,8 @@ Hero · About · Skills · Experience (timeline) · Projects (filterable) · Edu
 
 | Layer        | Technology                          |
 | ------------ | ----------------------------------- |
-| Framework    | [Next.js 14](https://nextjs.org/) (App Router) |
+| Framework    | [Next.js 16](https://nextjs.org/) (App Router) |
+| UI Library   | [React 19](https://react.dev/) |
 | Language     | [TypeScript](https://www.typescriptlang.org/) |
 | Styling      | [Tailwind CSS](https://tailwindcss.com/) |
 | Animation    | [Framer Motion](https://www.framer.com/motion/) |
@@ -76,7 +80,7 @@ Hero · About · Skills · Experience (timeline) · Projects (filterable) · Edu
 
 ### Prerequisites
 
-- Node.js 18.17+ (Node 20+ recommended)
+- Node.js 20.9+ (the minimum for Next.js 16; Node 22 recommended)
 
 ### Installation
 

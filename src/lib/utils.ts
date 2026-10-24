@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 /** Site URL used for SEO / Open Graph. */
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://amitmohanty.vercel.app";
+  "https://kirodata.vercel.app";
 
 /**
  * Base path the app is served from (empty on Vercel, "/<repo>" on GitHub Pages).

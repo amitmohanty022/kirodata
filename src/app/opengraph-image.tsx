@@ -1,6 +1,9 @@
 import { ImageResponse } from "next/og";
 import { profile } from "@/lib/data";
 
+// Required for `output: "export"` (GitHub Pages); the route is static anyway.
+export const dynamic = "force-static";
+
 export const alt = `${profile.name} — AI/ML Engineer Portfolio`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

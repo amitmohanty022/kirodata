@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { profile } from "@/lib/data";
 import { withBasePath } from "@/lib/utils";
 
+// Required for `output: "export"` (GitHub Pages); the route is static anyway.
+export const dynamic = "force-static";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: `${profile.name} — Portfolio`,

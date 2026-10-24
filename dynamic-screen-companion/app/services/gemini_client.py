@@ -55,11 +55,13 @@ def analyze(screen_text: str, question: Optional[str] = None) -> tuple[str, str]
         return _mock_analysis(screen_text, question), "mock"
 
     try:
-        import google.generativeai as genai
+        from google import genai
 
-        genai.configure(api_key=settings.gemini_api_key)
-        model = genai.GenerativeModel(settings.gemini_model)
-        response = model.generate_content(_build_prompt(screen_text, question))
+        client = genai.Client(api_key=settings.gemini_api_key)
+        response = client.models.generate_content(
+            model=settings.gemini_model,
+            contents=[_build_prompt(screen_text, question)],
+        )
         return (response.text or "").strip(), "gemini"
     except Exception as exc:
         logger.error("Gemini call failed, falling back to mock: %s", exc)

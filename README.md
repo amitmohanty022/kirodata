@@ -2,10 +2,11 @@
 
 A modern, premium, fully responsive personal portfolio for **Amit Kumar Mohanty** — AI/ML Engineer, Data Scientist & Full-Stack Developer. Built with Next.js, TypeScript, Tailwind CSS, and Framer Motion, and engineered to be fast, accessible, SEO-friendly, and deployment-ready for Vercel.
 
-![Built with Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![Built with Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19-61dafb?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38bdf8?logo=tailwindcss)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0080?logo=framer)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-14-ff0080?logo=framer)
 
 ---
 
@@ -29,7 +30,7 @@ Hero · About · Skills · Experience (timeline) · Projects (filterable) · Edu
 
 | Layer        | Technology                          |
 | ------------ | ----------------------------------- |
-| Framework    | [Next.js 14](https://nextjs.org/) (App Router) |
+| Framework    | [Next.js 16](https://nextjs.org/) (App Router) + React 19 |
 | Language     | [TypeScript](https://www.typescriptlang.org/) |
 | Styling      | [Tailwind CSS](https://tailwindcss.com/) |
 | Animation    | [Framer Motion](https://www.framer.com/motion/) |
@@ -67,6 +68,7 @@ Hero · About · Skills · Experience (timeline) · Projects (filterable) · Edu
 │       └── utils.ts            # Helpers
 ├── tailwind.config.ts
 ├── next.config.mjs
+├── eslint.config.mjs
 └── package.json
 ```
 
@@ -74,24 +76,48 @@ Hero · About · Skills · Experience (timeline) · Projects (filterable) · Edu
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### Step by step
 
-- Node.js 18.17+ (Node 20+ recommended)
+**1. Install Node.js 22 (LTS)** from https://nodejs.org. Next.js 16 needs Node 20.9 or newer.
 
-### Installation
+**2. Download the project**
 
 ```bash
-# 1. Install dependencies
+git clone https://github.com/amitmohanty022/kirodata.git
+cd kirodata
+```
+
+**3. Install dependencies**
+
+```bash
 npm install
+```
 
-# 2. Create your environment file
+**4. Create your environment file**
+
+```bash
+# macOS / Linux
 cp .env.example .env.local
+# Windows
+copy .env.example .env.local
+```
 
-# 3. Start the dev server
+All values are optional. Fill in the EmailJS IDs if you want the contact form to send emails (see below).
+
+**5. Start the dev server**
+
+```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). Edit [`src/lib/data.ts`](src/lib/data.ts) and the page updates instantly.
+
+**6. (Optional) Production build**
+
+```bash
+npm run build
+npm run start
+```
 
 ### Scripts
 

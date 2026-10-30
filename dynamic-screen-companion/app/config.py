@@ -38,7 +38,7 @@ class Settings:
 
     # Gemini / LLM
     gemini_api_key: str = ""
-    gemini_model: str = "gemini-1.5-flash"
+    gemini_model: str = "gemini-3.8-flash"
 
     # OCR
     tesseract_cmd: str = ""  # optional explicit path to the tesseract binary
@@ -62,7 +62,7 @@ def get_settings() -> Settings:
     _load_dotenv()
     return Settings(
         gemini_api_key=os.getenv("GEMINI_API_KEY", ""),
-        gemini_model=os.getenv("GEMINI_MODEL", "gemini-1.5-flash"),
+        gemini_model=os.getenv("GEMINI_MODEL", "gemini-3.8-flash"),
         tesseract_cmd=os.getenv("TESSERACT_CMD", ""),
         ocr_language=os.getenv("OCR_LANGUAGE", "eng"),
         tts_enabled=os.getenv("TTS_ENABLED", "true").lower() == "true",
